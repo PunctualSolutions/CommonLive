@@ -18,6 +18,14 @@ namespace ZhengDianWaiBao.CommonLive
         private string _gameId;
         private WebSocketBLiveClient _client;
         public WebSocketState State => _client.ws.State;
+        /// <summary>
+        /// 暂时无法使用
+        /// </summary>
+        public bool TestEnv
+        {
+            get => BApi.isTestEnv;
+            set => BApi.isTestEnv = value;
+        }
 
         /// <summary>
         /// 
