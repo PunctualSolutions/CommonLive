@@ -5,6 +5,7 @@ using NativeWebSocket;
 using OpenBLive.Runtime;
 using OpenBLive.Runtime.Data;
 using OpenBLive.Runtime.Utilities;
+using UnityEngine;
 using ZhengDianWaiBao.Tool;
 
 namespace ZhengDianWaiBao.CommonLive
@@ -18,6 +19,7 @@ namespace ZhengDianWaiBao.CommonLive
         private string _gameId;
         private WebSocketBLiveClient _client;
         public WebSocketState State => _client.ws.State;
+
         /// <summary>
         /// 暂时无法使用
         /// </summary>
@@ -63,7 +65,11 @@ namespace ZhengDianWaiBao.CommonLive
             if (appStartInfo.Code != 0) return new InitData(false, appStartInfo.Message);
             _gameId = appStartInfo.GetGameId();
             _client = new WebSocketBLiveClient(appStartInfo.GetWssLink(), appStartInfo.GetAuthBody());
-            _client.OnDanmaku += x => OnCommentaries?.Invoke(new(x));
+            _client.OnDanmaku += x =>
+            {
+                Debug.Log($"content:{x.msg}");
+                OnCommentaries?.Invoke(new(x));
+            };
             _client.OnGift += x => OnGift?.Invoke(new(x));
             _client.OnGuardBuy += x => OnGuardBuy?.Invoke(x);
             _client.OnSuperChat += x => OnAdvancedComments?.Invoke(new(x));
@@ -76,10 +82,33 @@ namespace ZhengDianWaiBao.CommonLive
                 return new(false, ex.Message);
             }
 
-            var beat = new InteractivePlayHeartBeat(_gameId);
+            beat = new InteractivePlayHeartBeat(_gameId);
             beat.Start();
+            beat.HeartBeatError += json => Debug.Log($"h r:{json}");
+            beat.HeartBeatSucceed += () => Debug.Log("h s");
+            OpenInfo();
+            return new(true);
 
-            return new();
+            async void OpenInfo()
+            {
+                while (true)
+                {
+                    await 0.1.Delay();
+                    if (_client is not { ws: { State: WebSocketState.Open } }) continue;
+                    _client.ws.DispatchMessageQueue();
+                }
+            }
+        }
+
+        private InteractivePlayHeartBeat beat;
+
+        public void Close()
+        {
+            if (beat != null)
+                beat.Dispose();
+            BApi.EndInteractivePlay(_appId.ToString(), _gameId);
+            if (_client != null)
+                _client.Dispose();
         }
 
         public event Action<Guard> OnGuardBuy;
