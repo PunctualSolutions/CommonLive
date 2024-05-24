@@ -1,6 +1,6 @@
 {
   "name": "cn.zheng-dian-wai-bao.common-live",
-  "version": "0.0.1-alpha",
+  "version": "0.0.2-alpha",
   "description": "Call various live interfaces in a generic way, current support: no",
   "displayName": "CommonLive",
   "unity": "2023.3",
