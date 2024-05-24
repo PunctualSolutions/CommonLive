@@ -61,7 +61,7 @@ namespace ZhengDianWaiBao.CommonLive
         public async Task<InitData> Init()
         {
             var data = await BApi.StartInteractivePlay(_code, _appId.ToString());
-            var appStartInfo = data.DeserializeObject<AppStartInfo>(); //处理开启游戏异常事件
+            var appStartInfo = data.JsonToObject<AppStartInfo>(); //处理开启游戏异常事件
             if (appStartInfo.Code != 0) return new InitData(false, appStartInfo.Message);
             _gameId = appStartInfo.GetGameId();
             _client = new WebSocketBLiveClient(appStartInfo.GetWssLink(), appStartInfo.GetAuthBody());
