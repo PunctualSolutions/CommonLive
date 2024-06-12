@@ -1,6 +1,6 @@
 using OpenBLive.Runtime.Data;
 
-namespace ZhengDianWaiBao.CommonLive
+namespace PunctualSolutionsTool.CommonLive
 {
     public class Commentaries : MessageBase
     {

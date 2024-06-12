@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using NativeWebSocket;
 using UnityEngine;
-using ZhengDianWaiBao.Tool;
+using PunctualSolutionsTool.Tool;
 
-namespace ZhengDianWaiBao.CommonLive.Sample
+namespace PunctualSolutionsTool.CommonLive.Sample
 {
     public class CommonLiveManager : MonoBehaviour
     {

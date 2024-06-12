@@ -1,8 +1,8 @@
 using System;
 using OpenBLive.Runtime.Data;
-using ZhengDianWaiBao.Tool;
+using PunctualSolutionsTool.Tool;
 
-namespace ZhengDianWaiBao.CommonLive
+namespace PunctualSolutionsTool.CommonLive
 {
     public class AdvancedComments : MessageBase
     {

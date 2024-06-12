@@ -1,6 +1,6 @@
 {
-    "name": "ZhengDianWaiBao.CommonLive",
-    "rootNamespace": "ZhengDianWaiBao.CommonLive",
+    "name": "PunctualSolutions.CommonLive",
+    "rootNamespace": "PunctualSolutions.CommonLive",
     "references": [
         "GUID:aad39dd3dbbabc740941e057e6cef811",
         "GUID:682ac9fd972789ebd9caf6d5623f1db6",

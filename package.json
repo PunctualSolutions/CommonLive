@@ -1,12 +1,12 @@
 {
-  "name": "cn.zheng-dian-wai-bao.common-live",
-  "version": "0.0.2-alpha",
+  "name": "cn.punctual-solutions.common-live",
+  "version": "0.0.3-alpha",
   "description": "Call various live interfaces in a generic way, current support: no",
   "displayName": "CommonLive",
   "unity": "2023.3",
   "dependencies": {
-    "cn.zheng-dian-wai-bao.tool": "0.0.1-alpha",
-    "cn.zheng-dian-wai-bao.bilibili.open-b-live": "0.0.1-alpha"
+    "cn.punctual-solutions.tool": "1.1.0",
+    "cn.punctual-solutions.third-party.open-bili-live": "1.0.0"
   },
   "samples": [
     {

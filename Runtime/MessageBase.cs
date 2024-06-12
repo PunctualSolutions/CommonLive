@@ -1,7 +1,7 @@
 using System;
-using ZhengDianWaiBao.Tool;
+using PunctualSolutionsTool.Tool;
 
-namespace ZhengDianWaiBao.CommonLive
+namespace PunctualSolutionsTool.CommonLive
 {
     public abstract class MessageBase
     {

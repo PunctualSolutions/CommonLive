@@ -6,9 +6,9 @@ using OpenBLive.Runtime;
 using OpenBLive.Runtime.Data;
 using OpenBLive.Runtime.Utilities;
 using UnityEngine;
-using ZhengDianWaiBao.Tool;
+using PunctualSolutionsTool.Tool;
 
-namespace ZhengDianWaiBao.CommonLive
+namespace PunctualSolutionsTool.CommonLive
 {
     public class LiveManager
     {
