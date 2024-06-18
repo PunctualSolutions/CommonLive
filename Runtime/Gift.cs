@@ -36,5 +36,7 @@ namespace PunctualSolutionsTool.CommonLive
         /// really money bilibili only
         /// </summary>
         public bool Paid { get; private set; }
+
+        public override string ToString() => $"{base.ToString()},GiftId:{Id},GiftName:{Name},GiftNumber:{Number},GiftPrice:{Price},Paid:{Paid},AnchorInfo:{AnchorInfo}";
     }
 }

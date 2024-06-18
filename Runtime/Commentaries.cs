@@ -17,5 +17,7 @@ namespace PunctualSolutionsTool.CommonLive
         }
 
         public string Content { get; private set; }
+
+        public override string ToString() => $"{base.ToString()}, Content: {Content}";
     }
 }

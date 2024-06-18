@@ -49,5 +49,6 @@ namespace PunctualSolutionsTool.CommonLive
         public long GuardLevel { get; protected set; }
 
         public DateTime SendTime { get; protected set; }
+        public override string ToString() => $"{UserName}({UserId}) {SendTime}";
     }
 }
