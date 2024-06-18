@@ -1,3 +1,4 @@
+using System;
 using OpenBLive.Runtime.Data;
 
 namespace PunctualSolutionsTool.CommonLive
@@ -14,6 +15,14 @@ namespace PunctualSolutionsTool.CommonLive
             Number = gift.giftNum;
             Price = gift.price;
             Paid = gift.paid;
+        }
+
+        public Gift(long uid, string userName, long id, string name, long number):base(uid,userName,0,string.Empty,new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds())
+        {
+            Id = id;
+            Name = name;
+            Number = number;
+            Price = 0;
         }
 
         public AnchorInfo AnchorInfo { get; private set; }

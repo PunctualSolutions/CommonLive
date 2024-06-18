@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using NativeWebSocket;
 using OpenBLive.Runtime;
 using OpenBLive.Runtime.Data;
@@ -18,7 +19,10 @@ namespace PunctualSolutionsTool.CommonLive
         private readonly long _appId;
         private string _gameId;
         private WebSocketBLiveClient _client;
+        public TestLivePlatform TestPlatform { get; private set; }
+
         public WebSocketState State => _client.ws.State;
+        public Platform Platform { get; private set; }
 
         /// <summary>
         /// 暂时无法使用
@@ -29,13 +33,6 @@ namespace PunctualSolutionsTool.CommonLive
             set => BApi.isTestEnv = value;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="accessKeySecret"></param>
-        /// <param name="accessKeyId"></param>
-        /// <param name="code">bilibili is identification code </param>
-        /// <param name="appId"></param>
         public LiveManager(string accessKeySecret, string accessKeyId, string code, long appId)
         {
             _accessKeySecret = accessKeySecret;
@@ -58,57 +55,71 @@ namespace PunctualSolutionsTool.CommonLive
             public string ErrorMessage { get; set; }
         }
 
-        public async Task<InitData> Init()
+        public async UniTask<InitData> Init(Platform platform)
         {
-            var data = await BApi.StartInteractivePlay(_code, _appId.ToString());
-            var appStartInfo = data.JsonToObject<AppStartInfo>(); //处理开启游戏异常事件
-            if (appStartInfo.Code != 0) return new InitData(false, appStartInfo.Message);
-            _gameId = appStartInfo.GetGameId();
-            _client = new WebSocketBLiveClient(appStartInfo.GetWssLink(), appStartInfo.GetAuthBody());
-            _client.OnDanmaku += x =>
+            Platform = platform;
+            return platform switch
             {
-                Debug.Log($"content:{x.msg}");
-                OnCommentaries?.Invoke(new(x));
+                Platform.Bilibili => await Bilibili(),
+                Platform.Test => Test(),
+                Platform.Douyin => throw new ArgumentOutOfRangeException(nameof(platform), platform, null),
+                _ => throw new ArgumentOutOfRangeException(nameof(platform), platform, null)
             };
-            _client.OnGift += x => OnGift?.Invoke(new(x));
-            _client.OnGuardBuy += x => OnGuardBuy?.Invoke(x);
-            _client.OnSuperChat += x => OnAdvancedComments?.Invoke(new(x));
-            try
-            {
-                _client.Connect(TimeSpan.FromSeconds(2), 10);
-            }
-            catch (Exception ex)
-            {
-                return new(false, ex.Message);
-            }
 
-            beat = new InteractivePlayHeartBeat(_gameId);
-            beat.Start();
-            beat.HeartBeatError += json => Debug.Log($"h r:{json}");
-            beat.HeartBeatSucceed += () => Debug.Log("h s");
-            OpenInfo();
-            return new(true);
-
-            async void OpenInfo()
+            async UniTask<InitData> Bilibili()
             {
-                while (true)
+                var data = await BApi.StartInteractivePlay(_code, _appId.ToString());
+                var appStartInfo = data.JsonToObject<AppStartInfo>(); //处理开启游戏异常事件
+                if (appStartInfo.Code != 0) return new InitData(false, appStartInfo.Message);
+                _gameId = appStartInfo.GetGameId();
+                _client = new WebSocketBLiveClient(appStartInfo.GetWssLink(), appStartInfo.GetAuthBody());
+                _client.OnDanmaku += x => { OnCommentaries?.Invoke(new(x)); };
+                _client.OnGift += x => OnGift?.Invoke(new(x));
+                _client.OnGuardBuy += x => OnGuardBuy?.Invoke(x);
+                _client.OnSuperChat += x => OnAdvancedComments?.Invoke(new(x));
+                try
                 {
-                    await 0.1.Delay();
-                    if (_client is not { ws: { State: WebSocketState.Open } }) continue;
-                    _client.ws.DispatchMessageQueue();
+                    _client.Connect(TimeSpan.FromSeconds(2), 10);
                 }
+                catch (Exception ex)
+                {
+                    return new(false, ex.Message);
+                }
+
+                _beat = new InteractivePlayHeartBeat(_gameId);
+                _beat.Start();
+                OpenInfo();
+                return new(true);
+
+                async void OpenInfo()
+                {
+                    while (true)
+                    {
+                        await 0.1.Delay();
+                        if (_client is not { ws: { State: WebSocketState.Open } }) continue;
+                        _client.ws.DispatchMessageQueue();
+                    }
+                    // ReSharper disable once FunctionNeverReturns
+                }
+            }
+
+            InitData Test()
+            {
+                TestPlatform = new TestLivePlatform();
+                
+                TestPlatform.OnCommentaries += OnCommentaries;
+                TestPlatform.OnGift += OnGift;
+                return new(true);
             }
         }
 
-        private InteractivePlayHeartBeat beat;
+        private InteractivePlayHeartBeat _beat;
 
-        public void Close()
+        public async UniTask Close()
         {
-            if (beat != null)
-                beat.Dispose();
-            BApi.EndInteractivePlay(_appId.ToString(), _gameId);
-            if (_client != null)
-                _client.Dispose();
+            _beat?.Dispose();
+            await BApi.EndInteractivePlay(_appId.ToString(), _gameId);
+            _client?.Dispose();
         }
 
         public event Action<Guard> OnGuardBuy;
