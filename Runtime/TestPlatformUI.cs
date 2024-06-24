@@ -22,7 +22,14 @@ namespace PunctualSolutionsTool.CommonLive
                     break;
             }
         }
-
+        
         public TestLivePlatform TestLivePlatform { get; set; }
+
+        [SerializeField] private string _cmd;
+        [ContextMenu("Input Data")]
+        public void InputData()
+        {
+            InputData(_cmd);
+        }
     }
 }
