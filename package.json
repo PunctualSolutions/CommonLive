@@ -1,6 +1,6 @@
 {
   "name": "cn.punctual-solutions.common-live",
-  "version": "0.0.6-alpha",
+  "version": "0.0.7-alpha",
   "description": "Call various live interfaces in a generic way, current support: no",
   "displayName": "CommonLive",
   "unity": "2023.3",
