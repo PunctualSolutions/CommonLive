@@ -1,23 +1,34 @@
 using System;
+using ByteDance.LiveOpenSdk.Push;
 using OpenBLive.Runtime.Data;
 
 namespace PunctualSolutionsTool.CommonLive
 {
-    public class Commentaries : MessageBase
+    public class Commentaries : MessageInfo
     {
-        public Commentaries(Dm dm) : base(dm.uid, dm.userName, dm.roomId, dm.userFace, dm.timestamp, dm.fansMedalLevel,
-            dm.fansMedalName, dm.fansMedalWearingStatus, dm.guardLevel)
+        public UserInfo UserInfo { get; }
+
+        public Commentaries(Dm dm) : base("", string.Empty, dm.timestamp)
         {
             Content = dm.msg;
+            UserInfo = new UserInfo(dm.openId, dm.userFace, dm.userName, dm.fansMedalLevel, dm.fansMedalName, dm.fansMedalWearingStatus, dm.guardLevel);
         }
 
-        public Commentaries(long uid, string content) : base(uid, string.Empty, 0, "", new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds())
+        public Commentaries(int userId, string content)
+            : base("", string.Empty, DateTime.Now)
         {
             Content = content;
+            UserInfo = new UserInfo(userId.ToString(), "", "");
         }
 
-        public string Content { get; private set; }
+        public Commentaries(ICommentMessage commentMessage) : base(commentMessage)
+        {
+            Content = commentMessage.Content;
+            UserInfo = new UserInfo(commentMessage.Sender);
+        }
 
-        public override string ToString() => $"{base.ToString()}, Content: {Content}";
+        public string Content { get; }
+
+        public override string ToString() => $"{base.ToString()}:{Content}\nUserInfo: {UserInfo}";
     }
 }

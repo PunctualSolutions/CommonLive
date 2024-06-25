@@ -1,18 +1,21 @@
+﻿using BiliInfo = OpenBLive.Runtime.Data.AnchorInfo;
+
 namespace PunctualSolutionsTool.CommonLive
 {
-    public struct AnchorInfo
+    /// <summary>
+    /// bilibili only
+    /// </summary>
+    public class AnchorInfo
     {
-        public AnchorInfo(OpenBLive.Runtime.Data.AnchorInfo info)
+        public long Uid;
+        public string UserName;
+        public string UserFace;
+
+        public AnchorInfo(BiliInfo anchorInfo)
         {
-            Id = info.uid;
-            Name = info.userName;
-            Face = info.userFace;
+            Uid = anchorInfo.uid;
+            UserName = anchorInfo.userName;
+            UserFace = anchorInfo.userFace;
         }
-
-        public long Id { get; private set; }
-
-        public string Name { get; private set; }
-
-        public string Face { get; private set; }
     }
 }

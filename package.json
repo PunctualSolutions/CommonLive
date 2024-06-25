@@ -6,7 +6,8 @@
   "unity": "2023.3",
   "dependencies": {
     "cn.punctual-solutions.tool": "1.1.0",
-    "cn.punctual-solutions.third-party.open-bili-live": "1.0.0"
+    "cn.punctual-solutions.third-party.open-bili-live": "1.0.0",
+    "com.bytedance.liveopensdk": "2.0.0"
   },
   "samples": [
     {
