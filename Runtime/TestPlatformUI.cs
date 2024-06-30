@@ -23,7 +23,7 @@ namespace PunctualSolutionsTool.CommonLive
             }
         }
 
-        private TestLiveServer TestLivePlatform { get; set; }
+        public TestLiveServer TestLivePlatform { get; private set; }
 
         [SerializeField] private string _cmd;
 
