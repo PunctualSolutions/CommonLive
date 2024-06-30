@@ -34,7 +34,7 @@ namespace PunctualSolutionsTool.CommonLive
             InputData(_cmd);
         }
 
-        private void Start()
+        private void Awake()
         {
             TestLivePlatform = new TestLiveServerFactory().GetCore();
         }
