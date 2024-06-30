@@ -44,11 +44,12 @@ namespace PunctualSolutionsTool.CommonLive
             UserInfo = new UserInfo(giftMessage.Sender);
         }
 
-        public Gift(string id, int number, long price) : base(DateTime.Now)
+        public Gift(string id, int number, long price,string userId) : base(DateTime.Now)
         {
             Id = id;
             Number = number;
             Price = price;
+            UserInfo = new(userId, "", userId);
         }
     }
 }

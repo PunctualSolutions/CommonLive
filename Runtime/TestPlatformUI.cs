@@ -18,7 +18,7 @@ namespace PunctualSolutionsTool.CommonLive
                     TestLivePlatform.SendCommentaries(new Commentaries(int.Parse(split[1]), split[2]));
                     break;
                 case "g":
-                    TestLivePlatform.SendGift(new Gift(split[1], int.Parse(split[3]), long.Parse(split[5])));
+                    TestLivePlatform.SendGift(new Gift(split[1], int.Parse(split[2]), long.Parse(split[3]),split[4]));
                     break;
             }
         }
