@@ -18,7 +18,7 @@ namespace PunctualSolutionsTool.CommonLive
             : base("", string.Empty, DateTime.Now)
         {
             Content = content;
-            UserInfo = new UserInfo(userId.ToString(), "", "");
+            UserInfo = new UserInfo(userId.ToString(), "", userId.ToString());
         }
 
         public Commentaries(ICommentMessage commentMessage) : base(commentMessage)
