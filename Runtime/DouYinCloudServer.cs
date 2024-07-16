@@ -87,27 +87,26 @@ namespace PunctualSolutionsTool.CommonLive
         void OnMessage(string message)
         {
             var json = JsonConvert.DeserializeObject<MainInfo>(message);
+            Debug.Log(message);
             switch (json.Type)
             {
-                case MessageType.Comment:
-                    var data = JsonConvert.DeserializeObject<Comment>(json.Data);
-                    OnCommentaries?.Invoke(new(data));
+                case "live_comment":
+                    var data = JsonConvert.DeserializeObject<Comment[]>(json.Data);
+                    OnCommentaries?.Invoke(new(data[0]));
                     break;
-                case MessageType.Like:
-                    var like = JsonConvert.DeserializeObject<Like>(json.Data);
-                    OnLike?.Invoke(new(like));
+                case "live_like":
+                    var like = JsonConvert.DeserializeObject<Like[]>(json.Data);
+                    OnLike?.Invoke(new(like[0]));
                     break;
-                case MessageType.Gift:
-                    var gift = JsonConvert.DeserializeObject<PunctualSolutions.CommonLive.DouYinInfo.Gift>(json.Data);
-                    OnGift?.Invoke(new(gift));
-                    break;
-                case null:
+                case "live_gift":
+                    var gift = JsonConvert.DeserializeObject<PunctualSolutions.CommonLive.DouYinInfo.Gift[]>(json.Data);
+                    OnGift?.Invoke(new(gift[0]));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            _messageAckService.ReportAck("", "");
+            _messageAckService.ReportAck(json.Id, json.Type!);
         }
 
         static void OnOpen()
