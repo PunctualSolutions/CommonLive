@@ -1,11 +1,24 @@
-﻿using System;
+﻿#region
+
+using System;
 using Cysharp.Threading.Tasks;
 using OpenBLive.Runtime.Data;
 
+#endregion
+
 namespace PunctualSolutionsTool.CommonLive
 {
-    internal class TestLiveServer : ILiveServer
+    class TestLiveServer : ILiveServer
     {
+        UniTask<InitData> ILiveServer.Init() => new(new());
+
+        public event Action<Guard>        OnGuardBuy;
+        public event Action<Gift>         OnGift;
+        public event Action<Commentaries> OnCommentaries;
+        public event Action<LikeInfo>     OnLike;
+
+        public UniTask Close() => new();
+
         public void SendCommentaries(Commentaries commentaries)
         {
             OnCommentaries?.Invoke(commentaries);
@@ -14,21 +27,6 @@ namespace PunctualSolutionsTool.CommonLive
         public void SendGift(Gift gift)
         {
             OnGift?.Invoke(gift);
-        }
-
-        UniTask<InitData> ILiveServer.Init()
-        {
-            return new UniTask<InitData>(new InitData());
-        }
-
-        public event Action<Guard> OnGuardBuy;
-        public event Action<Gift> OnGift;
-        public event Action<Commentaries> OnCommentaries;
-        public event Action<LikeInfo> OnLike;
-
-        public UniTask Close()
-        {
-            return new UniTask();
         }
     }
 }

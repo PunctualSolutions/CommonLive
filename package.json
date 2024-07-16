@@ -1,13 +1,14 @@
 {
   "name": "cn.punctual-solutions.common-live",
-  "version": "0.0.12-alpha",
+  "version": "0.1.0-alpha",
   "description": "Call various live interfaces in a generic way, current support: no",
   "displayName": "CommonLive",
   "unity": "2023.3",
   "dependencies": {
     "cn.punctual-solutions.tool": "1.1.0",
     "cn.punctual-solutions.third-party.open-bili-live": "1.0.0",
-    "com.bytedance.liveopensdk": "2.0.0"
+    "com.bytedance.liveopensdk": "2.0.0",
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
   },
   "samples": [
     {

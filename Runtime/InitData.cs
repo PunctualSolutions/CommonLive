@@ -4,11 +4,11 @@
     {
         public InitData(bool successes = true, string errorMessage = null)
         {
-            Successes = successes;
+            Successes    = successes;
             ErrorMessage = errorMessage;
         }
 
-        public bool Successes { get; set; }
+        public bool   Successes    { get; set; }
         public string ErrorMessage { get; set; }
     }
 }

@@ -1,55 +1,66 @@
+#region
+
 using System;
 using ByteDance.LiveOpenSdk.Push;
-using Cysharp.Threading.Tasks.Triggers;
 using OpenBLive.Runtime.Data;
+
+#endregion
 
 namespace PunctualSolutionsTool.CommonLive
 {
     public class Gift : MessageInfo
     {
-        public UserInfo UserInfo { get; private set; }
-        public AnchorInfo AnchorInfo { get; private set; }
-        public string Id { get; private set; }
-        public string Name { get; private set; }
-        public long Number { get; private set; }
-
-        /// <summary>
-        /// 单位厘
-        /// </summary>
-        public long Price { get; private set; }
-
-        /// <summary>
-        /// really money bilibili only
-        /// </summary>
-        public bool Paid { get; private set; }
-
-        public override string ToString() => $"{base.ToString()},GiftId:{Id},GiftName:{Name},GiftNumber:{Number},GiftPrice:{Price},Paid:{Paid},AnchorInfo:{AnchorInfo}";
-
         public Gift(SendGift gift) : base(gift.timestamp)
         {
-            Id = gift.giftId.ToString();
-            Name = gift.giftName;
-            Number = gift.giftNum;
-            Price = gift.price;
-            Paid = gift.paid;
-            AnchorInfo = new AnchorInfo(gift.anchorInfo);
-            UserInfo = new UserInfo(gift.openId, gift.userFace, gift.userName, gift.fansMedalLevel, gift.fansMedalName, gift.fansMedalWearingStatus, gift.guardLevel);
+            Id         = gift.giftId.ToString();
+            Name       = gift.giftName;
+            Number     = gift.giftNum;
+            Price      = gift.price;
+            Paid       = gift.paid;
+            AnchorInfo = new(gift.anchorInfo);
+            UserInfo   = new(gift.openId, gift.userFace, gift.userName, gift.fansMedalLevel, gift.fansMedalName, gift.fansMedalWearingStatus, gift.guardLevel);
         }
 
         public Gift(IGiftMessage giftMessage) : base(giftMessage)
         {
-            Id = giftMessage.SecGiftId;
-            Number = giftMessage.GiftCount;
-            Price = giftMessage.GiftValue * 10;
-            UserInfo = new UserInfo(giftMessage.Sender);
+            Id       = giftMessage.SecGiftId;
+            Number   = giftMessage.GiftCount;
+            Price    = giftMessage.GiftValue * 10;
+            UserInfo = new(giftMessage.Sender);
         }
 
-        public Gift(string id, int number, long price,string userId) : base(DateTime.Now)
+        public Gift(string id, int number, long price, string userId) : base(DateTime.Now)
         {
-            Id = id;
-            Number = number;
-            Price = price;
+            Id       = id;
+            Number   = number;
+            Price    = price;
             UserInfo = new(userId, "", userId);
         }
+
+        public Gift(PunctualSolutions.CommonLive.DouYinInfo.Gift giftMessage) : base(giftMessage.OpenId, string.Empty, giftMessage.Timestamp)
+        {
+            Id       = giftMessage.Id;
+            Number   = giftMessage.Number;
+            Price    = giftMessage.Value * 10;
+            UserInfo = new(giftMessage);
+        }
+
+        public UserInfo   UserInfo   { get; private set; }
+        public AnchorInfo AnchorInfo { get; }
+        public string     Id         { get; }
+        public string     Name       { get; }
+        public long       Number     { get; }
+
+        /// <summary>
+        ///     单位厘
+        /// </summary>
+        public long Price { get; }
+
+        /// <summary>
+        ///     really money bilibili only
+        /// </summary>
+        public bool Paid { get; }
+
+        public override string ToString() => $"{base.ToString()},GiftId:{Id},GiftName:{Name},GiftNumber:{Number},GiftPrice:{Price},Paid:{Paid},AnchorInfo:{AnchorInfo}";
     }
 }

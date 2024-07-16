@@ -1,0 +1,17 @@
+﻿{
+  "1": {
+    "data": "[{\"msg_id\":\"7391784082461561882\",\"sec_openid\":\"_000us0LxPdcRmIxzsJxNWcMvTwt3C_Wzduw\",\"content\":\"1\",\"avatar_url\":\"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oIZy8xQ5AAAPAesTgEfH8aCzHtrnLADhAACDgI.jpeg?from=3067671334\",\"nickname\":\"原神小古董\",\"timestamp\":1721033873000}]",
+    "msg_type": "live_comment",
+    "msg_id": "7391784082461561882"
+  },
+  "2": {
+    "data": "[{\"msg_id\":\"7391784521144620084\",\"sec_openid\":\"_000us0LxPdcRmIxzsJxNWcMvTwt3C_Wzduw\",\"like_num\":3,\"avatar_url\":\"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oIZy8xQ5AAAPAesTgEfH8aCzHtrnLADhAACDgI.jpeg?from=3067671334\",\"nickname\":\"原神小古董\",\"timestamp\":1721033976451}]",
+    "msg_type": "live_like",
+    "msg_id": "7391784521144620084"
+  },
+  "3": {
+    "data": "[{\"msg_id\":\"7391784618610955290\",\"sec_openid\":\"_000us0LxPdcRmIxzsJxNWcMvTwt3C_Wzduw\",\"sec_gift_id\":\"n1/Dg1905sj1FyoBlQBvmbaDZFBNaKuKZH6zxHkv8Lg5x2cRfrKUTb8gzMs=\",\"gift_num\":1,\"gift_value\":10,\"avatar_url\":\"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oIZy8xQ5AAAPAesTgEfH8aCzHtrnLADhAACDgI.jpeg?from=3067671334\",\"nickname\":\"原神小古董\",\"timestamp\":1721034004000}]",
+    "msg_type": "live_gift",
+    "msg_id": "7391784618610955290"
+  }
+}

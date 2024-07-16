@@ -2,8 +2,8 @@
 {
     public class TestLiveServerFactory : ILiveServerFactory
     {
-        private readonly TestLiveServer _liveServer = new();
-        protected override ILiveServer LiveServer => _liveServer;
+        readonly           TestLiveServer _liveServer = new();
+        protected override ILiveServer    LiveServer => _liveServer;
 
         internal TestLiveServer GetCore() => _liveServer;
     }
