@@ -30,7 +30,7 @@ namespace PunctualSolutionsTool.CommonLive
             UserInfo = new(commentMessage.Sender);
         }
 
-        public Commentaries(Comment commentMessage) : base(commentMessage.MessageId, string.Empty, commentMessage.Timestamp)
+        public Commentaries(Comment commentMessage) : base(commentMessage.MessageId, string.Empty, 0)
         {
             Content  = commentMessage.Content;
             UserInfo = new(commentMessage);
