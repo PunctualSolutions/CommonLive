@@ -37,7 +37,7 @@ namespace PunctualSolutionsTool.CommonLive
             UserInfo = new(userId, "", userId);
         }
 
-        public Gift(PunctualSolutions.CommonLive.DouYinInfo.Gift giftMessage) : base(giftMessage.OpenId, string.Empty, giftMessage.Timestamp)
+        public Gift(PunctualSolutions.CommonLive.DouYinInfo.Gift giftMessage) : base(giftMessage.OpenId, string.Empty, 0)
         {
             Id       = giftMessage.Id;
             Number   = giftMessage.Number;
