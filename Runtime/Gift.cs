@@ -39,10 +39,11 @@ namespace PunctualSolutionsTool.CommonLive
 
         public Gift(PunctualSolutions.CommonLive.DouYinInfo.Gift giftMessage) : base(giftMessage.OpenId, string.Empty, 0)
         {
-            Id       = giftMessage.Id;
-            Number   = giftMessage.Number;
-            Price    = giftMessage.Value * 10;
-            UserInfo = new(giftMessage);
+            Id        = giftMessage.Id;
+            Number    = giftMessage.Number;
+            Price     = giftMessage.Value * 10;
+            AvatarUrl = giftMessage.AvatarUrl;
+            UserInfo  = new(giftMessage);
         }
 
         public UserInfo   UserInfo   { get; private set; }
@@ -50,6 +51,7 @@ namespace PunctualSolutionsTool.CommonLive
         public string     Id         { get; }
         public string     Name       { get; }
         public long       Number     { get; }
+        public string     AvatarUrl  { get; set; }
 
         /// <summary>
         ///     单位厘
