@@ -21,6 +21,8 @@ namespace PunctualSolutionsTool.CommonLive
             UserInfo = new(likeMessage);
         }
 
+        public LikeInfo(int count, string openId) : base(openId, string.Empty, 0) => Count = count;
+
         public long     Count    { get; }
         public UserInfo UserInfo { get; }
     }

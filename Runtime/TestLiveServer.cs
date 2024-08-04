@@ -19,14 +19,10 @@ namespace PunctualSolutionsTool.CommonLive
 
         public UniTask Close() => new();
 
-        public void SendCommentaries(Commentaries commentaries)
-        {
-            OnCommentaries?.Invoke(commentaries);
-        }
+        public void SendCommentaries(Commentaries commentaries) => OnCommentaries?.Invoke(commentaries);
 
-        public void SendGift(Gift gift)
-        {
-            OnGift?.Invoke(gift);
-        }
+        public void SendGift(Gift gift) => OnGift?.Invoke(gift);
+
+        public void SendLike(LikeInfo like) => OnLike?.Invoke(like);
     }
 }

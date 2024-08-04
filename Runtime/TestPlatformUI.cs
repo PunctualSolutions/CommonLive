@@ -34,6 +34,9 @@ namespace PunctualSolutionsTool.CommonLive
                 case "g":
                     TestLivePlatform.SendGift(new(split[1], int.Parse(split[2]), long.Parse(split[3]), split[4]));
                     break;
+                case "l":
+                    TestLivePlatform.SendLike(new(int.Parse(split[1]), split[2]));
+                    break;
             }
         }
 
