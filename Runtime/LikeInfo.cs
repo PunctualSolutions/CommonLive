@@ -21,7 +21,11 @@ namespace PunctualSolutionsTool.CommonLive
             UserInfo = new(likeMessage);
         }
 
-        public LikeInfo(int count, string openId) : base(openId, string.Empty, 0) => Count = count;
+        public LikeInfo(int count, string openId) : base(openId, string.Empty, 0)
+        {
+            Count    = count;
+            UserInfo = new(openId, "https://img.keaitupian.cn/newupload/10/1665719041392224.jpeg", openId);
+        }
 
         public long     Count    { get; }
         public UserInfo UserInfo { get; }
