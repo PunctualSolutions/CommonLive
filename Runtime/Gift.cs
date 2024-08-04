@@ -34,7 +34,7 @@ namespace PunctualSolutionsTool.CommonLive
             Id       = id;
             Number   = number;
             Price    = price;
-            UserInfo = new(userId, "", userId);
+            UserInfo = new(userId, "https://pic.616pic.com/photoone/00/02/02/618cf1bbce7a77755.jpg!/fw/1120", userId);
         }
 
         public Gift(PunctualSolutions.CommonLive.DouYinInfo.Gift giftMessage) : base(giftMessage.OpenId, string.Empty, 0)
@@ -51,7 +51,7 @@ namespace PunctualSolutionsTool.CommonLive
         public string     Id         { get; }
         public string     Name       { get; }
         public long       Number     { get; }
-        public string     AvatarUrl  { get; set; }
+        public string     AvatarUrl  { get; set; } ="https://pic.616pic.com/photoone/00/02/02/618cf1bbce7a77755.jpg!/fw/1120";
 
         /// <summary>
         ///     单位厘

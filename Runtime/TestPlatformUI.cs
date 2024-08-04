@@ -41,9 +41,6 @@ namespace PunctualSolutionsTool.CommonLive
         }
 
         [ContextMenu("Input Data")]
-        public void InputData()
-        {
-            InputData(_cmd);
-        }
+        public void InputData() => InputData(_cmd);
     }
 }
